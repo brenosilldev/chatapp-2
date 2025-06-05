@@ -1,0 +1,24 @@
+{
+  "name": "chatapp-2",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon back/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brenosilldev/chatapp-2.git"
+  },
+    "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brenosilldev/chatapp-2/issues"
+  },
+  "homepage": "https://github.com/brenosilldev/chatapp-2#readme",
+  "description": "",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
