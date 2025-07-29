@@ -24,7 +24,7 @@ export const Register = async (req, res) => {
         const newUser = await User.create({nome, password: hashedPassword, email, genero, avatar: genero === "masculino" ? boy : girl});
 
 
-        res.status(201).json(newUser);
+        res.status(201).json({message: "User created successfully", user: newUser});
         
     }catch(error){
         res.status(500).json({message: error.message});
@@ -49,12 +49,14 @@ export const Auth = async (req, res) => {
 
         generateToken(user._id, res);
 
-        res.status(200).json({message: "Login success", usuario: user.usuario, email: user.email, avatar: user.avatar});
+        res.status(200).json({message: "Login success", nome: user.nome, email: user.email, avatar: user.avatar});
         
     }catch(error){
         res.status(500).json({message: error.message});
     }
 }
+
+
 
 export const Logout = async (req, res) => {
     try{
