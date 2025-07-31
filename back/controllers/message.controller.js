@@ -12,9 +12,10 @@ export const SendMessage = async (req, res) => {
             return res.status(400).json({error: 'Message cannot be empty'});
         }
 
+        // Adicionar timeout específico para a operação
         let conversation = await Conversation.findOne({
             participants: { $all: [sender, id] }
-        });
+        }).maxTimeMS(5000);
 
         if(!conversation){
             conversation = await Conversation.create({
@@ -53,7 +54,13 @@ export const SendMessage = async (req, res) => {
         res.status(201).json(formattedMessage);
 
     } catch (error) {
-        console.log("Error in SendMessage:", error);
+        console.error("Error in SendMessage:", error);
+        
+        // Tratamento específico para erros de timeout
+        if (error.name === 'MongooseError' && error.message.includes('timed out')) {
+            return res.status(500).json({error: "Database operation timed out. Please try again."});
+        }
+        
         res.status(500).json({error: 'Error sending message'});
     }
 }
@@ -62,9 +69,10 @@ export const GetMessages = async (req, res) => {
     try {
         const iduserToChat = req.params.id;
 
+        // Adicionar timeout específico para a operação
         const conversation = await Conversation.findOne({   
             participants: { $all: [req.userId, iduserToChat] }
-        }).populate('messages');
+        }).populate('messages').maxTimeMS(5000);
 
         if(!conversation){
             return res.status(404).json({error: 'Conversation not found'});
@@ -74,7 +82,13 @@ export const GetMessages = async (req, res) => {
         res.status(200).json(messages);
 
     } catch (error) {
-        console.log("Error in GetMessages:", error);
+        console.error("Error in GetMessages:", error);
+        
+        // Tratamento específico para erros de timeout
+        if (error.name === 'MongooseError' && error.message.includes('timed out')) {
+            return res.status(500).json({error: "Database operation timed out. Please try again."});
+        }
+        
         res.status(500).json({error: 'Error getting messages'});
     }
 }

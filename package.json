@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon back/server.js",
     "build": "npm install && npm install --prefix front && npm run build --prefix front",
-    "start": "node back/server.js"
+    "start": "node back/server.js",
+    "test:db": "node back/testDb.js"
   },
   "repository": {
     "type": "git",
