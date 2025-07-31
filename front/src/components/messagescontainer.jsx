@@ -1,8 +1,12 @@
 import Messages from './messages'
 import MessageInput from './messageInput'
+import useConversations from '../store/useConversations'
 
 const MessagesContainer = () => {
-    const selectedChat = false
+
+    const {selectedConversation} = useConversations()
+
+    const selectedChat = selectedConversation !== null
 
     return (
 
@@ -10,7 +14,7 @@ const MessagesContainer = () => {
             {selectedChat ? (
                 <>      
                     <div className='bg-slate-500 px-4 py-2 mb-2'>
-                        <span className='text-white font-bold'>John Doe</span>
+                        <span className='text-white font-bold'>{selectedConversation.nome}</span>
                         
                     </div>
                     <Messages />
