@@ -1,42 +1,22 @@
 import React from 'react'
+import Conversation from './conversation'
+import { useGetConversations } from '../hooks/useGetConversations'
 
-const conversations = () => {
+const Conversations = () => {
 
-
-    const user = true
-
+    const {conversations, loading} = useGetConversations()
     return (
-        <div className='flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-2 cursor-pointer '>
-           {user ? (
-                <div className="avatar avatar-online">
-                    <div className="w-12 rounded-full">
-                        <img src="https://img.daisyui.com/images/profile/demo/gordon@192.webp" />
-                    </div>
-                    </div>
-                 
- 
-                ) : (
-                <div className="avatar avatar-offline">
-                    <div className="w-12 rounded-full">
-                        <img src="https://img.daisyui.com/images/profile/demo/idiotsandwich@192.webp" />
-                    </div>
-                </div>
-            )}
-
-            <div className='flex flex-col flex-1'>
-                <div className='flex justify-between items-center'>
-                    <div className='flex flex-col'>
-                        <span className='text-gray-900 font-bold'>John Doe</span>
-                        <span className='text-gray-500 text-sm'>Last message</span>
-                    </div>
-                    <div className='flex flex-col'>
-                        <span className='text-gray-900 font-bold'>12:00</span>
-                    </div>
-                </div>
-
-            </div>
+        <div className='py-2 flex flex-col gap-2 overflow-y-auto'>
+           
+            {conversations.map((conversation) => (
+                <Conversation key={conversation._id} conversation={conversation} />
+            ))}
+               {!loading && conversations.length === 0 && <div className='flex flex-col gap-3 justify-center items-center h-full'>
+                <p className='text-gray-500'>No conversations found</p>
+                <div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900'></div>
+            </div>}
         </div>
     )
 }
 
-export default conversations
+export default Conversations
