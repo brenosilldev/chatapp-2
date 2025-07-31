@@ -6,12 +6,12 @@ export const AuthContext = createContext({})
 
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => {
+export const useAuthContext = () => {
     return useContext(AuthContext)
 }
 
 
-export const AuthProvider = ({children}) => {
+export const AuthContextProvider = ({children}) => {
 
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null
 )
