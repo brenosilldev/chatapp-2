@@ -33,26 +33,28 @@ export const Register = async (req, res) => {
 
 export const Auth = async (req, res) => {
     try{
-        const {username, password} = req.body;
+        const {email, password} = req.body;
 
-        const user = await User.findOne({username});
+        const user = await User.findOne({email});
         
         if(!user){
-            return res.status(400).json({message: "User not found"});
+            return res.status(400).json({error: "User not found"});
         }
 
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
         if(!isPasswordCorrect){
-            return res.status(400).json({message: "Invalid password"});
+            return res.status(400).json({error: "Invalid password"});
         }
 
         generateToken(user._id, res);
 
-        res.status(200).json({message: "Login success", nome: user.nome, email: user.email, avatar: user.avatar});
+        const {password: _, ...userWithoutPassword} = user.toObject();
+
+        res.status(200).json({message: "Login success", user: userWithoutPassword});
         
     }catch(error){
-        res.status(500).json({message: error.message});
+        res.status(500).json({error: error.message});
     }
 }
 
