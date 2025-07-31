@@ -1,11 +1,11 @@
 import { useState } from "react"
 import toast from "react-hot-toast"
-import { useAuth } from "../context/AuthContext"
+import { useAuthContext } from "../context/AuthContext"
 
 const useCadastro = () => {
 
     const [loading, setLoading] = useState(false)
-    const {setUser} = useAuth()
+    const {setUser} = useAuthContext()
 
     
     const signUp = async ({nome, email, password, genero}) => {
@@ -16,7 +16,7 @@ const useCadastro = () => {
         setLoading(true)    
 
         try {
-            const res = await fetch('http://localhost:8000/api/auth/signup', {
+            const res = await fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -25,6 +25,7 @@ const useCadastro = () => {
             })
 
             const data = await res.json()
+
             setUser(data.user)
             localStorage.setItem('user', JSON.stringify(data.user))
 
