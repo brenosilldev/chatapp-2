@@ -43,6 +43,8 @@ chatapp-2/
 │   ├── controllers/         # Controladores da aplicação
 │   │   ├── auth.controller.js
 │   │   └── message.controller.js
+│   │   └── user.controller.js
+    |   
 │   ├── lib/                # Utilitários e configurações
 │   │   ├── db.js          # Conexão com MongoDB
 │   │   └── generatetoken.js # Geração de JWT
@@ -51,8 +53,12 @@ chatapp-2/
 │   │   ├── message.model.js
 │   │   └── user.model.js
 │   ├── routes/             # Rotas da API
+│   │   ├── user.routes.js
 │   │   ├── auth.routes.js
+│   │   ├── message.routes.js
 │   │   └── index.routes.js
+│   ├── sockey/           
+│   │   ├── socket.js
 │   └── server.js           # Servidor principal
 ├── front/                  # Frontend (React)
 │   ├── src/
@@ -60,6 +66,11 @@ chatapp-2/
 │   │   ├── App.css
 │   │   ├── main.jsx
 │   │   └── assets/
+│   │   └── components/
+│   │   └── context/
+│   │   └── hooks/
+│   │   └── pages/
+│   │   └── store/
 │   ├── public/
 │   ├── package.json
 │   └── vite.config.js
@@ -71,7 +82,7 @@ chatapp-2/
 ### Pré-requisitos
 - Node.js (versão 18 ou superior)
 - MongoDB (local ou MongoDB Atlas)
-- npm ou yarn
+- 
 
 ### 1. Clone o repositório
 ```bash
@@ -112,7 +123,7 @@ JWT_SECRET=sua_chave_secreta_muito_segura_aqui
 
 #### Backend
 ```bash
-npm run server
+npm run dev
 ```
 O servidor estará rodando em `http://localhost:5000`
 
@@ -202,24 +213,16 @@ curl -X POST http://localhost:5000/api/auth/login \
 
 ## 🚀 Deploy
 
-### Backend (Heroku/Railway/Vercel)
+### Backend/Frontend (Render)
 1. Configure as variáveis de ambiente no seu provedor
 2. Conecte o repositório
 3. Deploy automático
 
-### Frontend (Vercel/Netlify)
 ```bash
-cd front
 npm run build
+npm run start
 ```
 
-## 🤝 Contribuição
-
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
 
 ## 📝 Licença
 
@@ -230,27 +233,3 @@ Este projeto está sob a licença ISC. Veja o arquivo `LICENSE` para mais detalh
 **Breno Silva**
 - GitHub: [@brenosilldev](https://github.com/brenosilldev)
 
-## 🐛 Problemas Conhecidos
-
-- O frontend ainda está em desenvolvimento inicial
-- Implementação do Socket.IO pendente
-- Interface de chat ainda não implementada
-
-## 🔮 Próximas Funcionalidades
-
-- [ ] Interface de chat completa
-- [ ] Socket.IO para mensagens em tempo real
-- [ ] Notificações push
-- [ ] Upload de arquivos
-- [ ] Emojis e reações
-- [ ] Status online/offline
-- [ ] Grupos de chat
-- [ ] Chamadas de voz/vídeo
-
-## 📞 Suporte
-
-Se você encontrar algum problema ou tiver dúvidas, abra uma [issue](https://github.com/brenosilldev/chatapp-2/issues) no GitHub.
-
----
-
-⭐ Se este projeto te ajudou, considere dar uma estrela no repositório! 
