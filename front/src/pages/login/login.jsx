@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import useLogin from '../../hooks/useLogin'
 
 const Login = () => {
+
+    const {signIn, loading} = useLogin()
 
     const [user, setUser] = useState({
         email: '',
@@ -10,13 +13,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        try {
-           
-            console.log('123')
+        try {   
+            await signIn(user)
         } catch (error) {
             console.log(error)
         }
     }
+    
     
 
     return (
@@ -50,7 +53,7 @@ const Login = () => {
                     </div>
                     <div className='flex flex-col gap-2'>
                         <a href="/cadastro" className='text-blue-500 text-end'>{"Don't have an account? Register"}</a>
-                        <button className='bg-blue-500 text-white p-2 rounded-md'>Login</button>
+                        <button className='bg-blue-500 text-white p-2 rounded-md' disabled={loading}>{loading ? 'Loading...' : 'Login'}</button>
                     </div>
                 </form>
                 
